@@ -1,38 +1,66 @@
-var sea,ship;
-var seaImg,shipImg;
+var path 
+var boy 
+var leftBoundary
+var rightBoundary
+var pathImg
+var boyImg 
+var i;
+
 
 function preload(){
-  seaImg = loadImage("sea.png");
-  shipImg1 = loadAnimation("ship-1.png","ship-1.png",
-                            "ship-2.png","ship-1.png");
+  pathImg = loadImage("path.png");
+  boyImg = loadAnimation("Runner-1.png","Runner-2.png");
 }
 
 function setup(){
   createCanvas(400,400);
-  background("blue");
 
-  // Plano de fundo móvel
-  sea=createSprite(400,200);
-  sea.addImage(seaImg);
-  sea.velocityX = -5;
-  sea.scale=0.3;
+  path = createSprite (200,200) ;
+  path.addImage (pathImg) ;
+  path.velocityY = 4;
+  path.scale=1.2;
+    
+  
+    
+  
+ 
+  leftBoundary=createSprite(0,0,100,800);
+  leftBoundary.visible = false;
 
-  
-  ship = createSprite(130,200,30,30);
-  ship.addAnimation("movingShip",shipImg1);
-  ship.scale =0.25;
-  
+
+  rightBoundary=createSprite(400,400,100,800) ;
+  rightBoundary.visible = false ;
+  boy = createSprite(380,200) ;
+  boy.scale = 0.5 ;
 }
 
 function draw() {
-  background(0);
-  sea.velocityX = -3;
-
-  
-  //código para redefinir o plano de fundo
-  if(sea.x < 0){
-    sea.x = sea.width/8;
-  }
-    
+  background(0); 
   drawSprites();
-}
+   
+  boy.x = World.mouseX ;
+
+  edges= createEdgeSprites();
+  boy.collide(edges[3]);
+  boy.collide(leftBoundary) ;
+  boy.collide(rightBoundary) ;
+  drawSprites();
+  if (path.y >=600) {
+    path = createSprite (200,200) ;
+    path.addImage (pathImg) ;
+    path.velocityY = 4;
+    path.scale=1.2;
+
+  }
+  
+ 
+
+
+
+ 
+
+ }
+
+
+
+
